@@ -80,7 +80,7 @@ const Navbar = () => {
               );
             })}
             {/* Theme Toggle */}
-            <button
+            {/* <button
               onClick={toggleTheme}
               className="p-2 rounded-lg glass-light hover:bg-primary/20 transition-all group"
               aria-label="Toggle theme"
@@ -90,7 +90,7 @@ const Navbar = () => {
               ) : (
                 <Moon size={20} className="text-gray-700 group-hover:text-primary transition-colors" />
               )}
-            </button>
+            </button> */}
           </div>
 
           {/* Mobile Menu Button & Theme Toggle */}
