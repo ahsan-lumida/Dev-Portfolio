@@ -1,8 +1,9 @@
 import { Link, useLocation } from 'react-router-dom';
 import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
 import { Menu, X, Sun, Moon } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useTheme } from '../contexts/ThemeContext';
+import { memo } from 'react';
 
 const navLinks = [
   { name: 'Home', path: '/' },
@@ -19,8 +20,12 @@ const Navbar = () => {
   const { theme, toggleTheme } = useTheme();
   const { scrollY } = useScroll();
 
+  // Throttle scroll events for performance
   useMotionValueEvent(scrollY, 'change', (latest) => {
-    setScrolled(latest > 50);
+    const shouldBeScrolled = latest > 50;
+    if (shouldBeScrolled !== scrolled) {
+      setScrolled(shouldBeScrolled);
+    }
   });
 
   return (
@@ -147,5 +152,5 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default memo(Navbar);
 

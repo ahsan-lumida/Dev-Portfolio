@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import ContactForm from '../components/ContactForm';
-import { Mail, MapPin, Phone, Globe } from 'lucide-react';
+import { Mail, MapPin, Globe } from 'lucide-react';
 
 const Contact = () => {
   return (
@@ -21,7 +21,7 @@ const Contact = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
           {/* Contact Info Cards */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -45,24 +45,6 @@ const Contact = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="glass p-6 rounded-xl text-center"
-          >
-            <div className="inline-flex p-3 rounded-full bg-secondary/20 mb-4">
-              <Phone className="text-secondary" size={24} />
-            </div>
-            <h3 className="text-lg font-semibold text-adaptive-white mb-2">Phone</h3>
-            <a
-              href="tel:+923072668682"
-              className="text-adaptive-gray hover:text-primary transition-colors"
-            >
-              +92 307 2668682
-            </a>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
             className="glass p-6 rounded-xl text-center"
           >
             <div className="inline-flex p-3 rounded-full bg-primary/20 mb-4">

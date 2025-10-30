@@ -1,8 +1,9 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ExternalLink, Github, Calendar, Users } from 'lucide-react';
+import { memo } from 'react';
 
-const ProjectModal = ({ project, isOpen, onClose }) => {
-  if (!project) return null;
+const ProjectModal = memo(({ project, isOpen, onClose }) => {
+  if (!project || !isOpen) return null;
 
   return (
     <AnimatePresence>
@@ -14,7 +15,7 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
           >
             {/* Modal */}
             <motion.div
@@ -29,26 +30,26 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
                 className="absolute top-4 right-4 p-2 rounded-lg hover:bg-primary/20 transition-colors"
                 aria-label="Close modal"
               >
-                <X size={24} className="text-gray-400 hover:text-primary" />
+                <X size={24} className="text-adaptive-gray hover:text-primary" />
               </button>
 
               <div className="pr-8">
-                <h2 className="text-3xl font-heading font-bold text-white mb-4">
+                <h2 className="text-3xl font-heading font-bold text-adaptive-white mb-4">
                   {project.title}
                 </h2>
-                <p className="text-gray-300 text-lg leading-relaxed mb-6">
+                <p className="text-adaptive-gray-light text-lg leading-relaxed mb-6">
                   {project.description}
                 </p>
 
                 {project.fullDescription && (
                   <div className="mb-6">
-                    <h3 className="text-xl font-heading font-semibold text-white mb-3">Details</h3>
-                    <p className="text-gray-400 leading-relaxed">{project.fullDescription}</p>
+                    <h3 className="text-xl font-heading font-semibold text-adaptive-white mb-3">Details</h3>
+                    <p className="text-adaptive-gray leading-relaxed">{project.fullDescription}</p>
                   </div>
                 )}
 
                 <div className="mb-6">
-                  <h3 className="text-xl font-heading font-semibold text-white mb-3">
+                  <h3 className="text-xl font-heading font-semibold text-adaptive-white mb-3">
                     Tech Stack
                   </h3>
                   <div className="flex flex-wrap gap-2">
@@ -111,7 +112,9 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
       )}
     </AnimatePresence>
   );
-};
+});
+
+ProjectModal.displayName = 'ProjectModal';
 
 export default ProjectModal;
 

@@ -58,7 +58,7 @@ const ContactForm = () => {
               {...register('name', { required: 'Name is required' })}
               type="text"
               id="name"
-              className="w-full px-4 py-3 glass-light rounded-lg text-adaptive-white placeholder-gray-400 html:light:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary transition-all"
+              className="w-full px-4 py-3 glass-light rounded-lg text-adaptive-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary transition-all"
               placeholder="Your name"
             />
             {errors.name && (
@@ -80,7 +80,7 @@ const ContactForm = () => {
               })}
               type="email"
               id="email"
-              className="w-full px-4 py-3 glass-light rounded-lg text-adaptive-white placeholder-gray-400 html:light:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary transition-all"
+              className="w-full px-4 py-3 glass-light rounded-lg text-adaptive-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary transition-all"
               placeholder="your.email@example.com"
             />
             {errors.email && (

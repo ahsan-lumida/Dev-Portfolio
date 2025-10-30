@@ -1,15 +1,15 @@
 import { motion } from 'framer-motion';
 import { ExternalLink, Github, Sparkles } from 'lucide-react';
+import { memo } from 'react';
 
-const ProjectCard = ({ project, index }) => {
+const ProjectCard = ({ project }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.1, duration: 0.5 }}
-      whileHover={{ y: -10, scale: 1.02 }}
-      className="glass rounded-2xl overflow-hidden group cursor-pointer h-full flex flex-col relative"
+      viewport={{ once: true, margin: '-50px' }}
+      transition={{ duration: 0.3 }}
+      className="glass rounded-2xl overflow-hidden group cursor-pointer h-full flex flex-col relative transition-transform hover:scale-[1.02] hover:shadow-lg hover:shadow-primary/20"
     >
       {project.featured && (
         <div className="absolute top-4 right-4 z-10">
@@ -67,5 +67,5 @@ const ProjectCard = ({ project, index }) => {
   );
 };
 
-export default ProjectCard;
+export default memo(ProjectCard);
 

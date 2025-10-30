@@ -15,7 +15,7 @@ const SkillBadge = ({ skill, icon: Icon, delay = 0 }) => {
           <Icon />
         </div>
       )}
-      <span className="text-sm font-medium text-gray-300 group-hover:text-primary transition-colors">
+      <span className="text-sm font-medium text-adaptive-gray-light group-hover:text-primary transition-colors">
         {skill}
       </span>
     </motion.div>
@@ -23,4 +23,3 @@ const SkillBadge = ({ skill, icon: Icon, delay = 0 }) => {
 };
 
 export default SkillBadge;
-

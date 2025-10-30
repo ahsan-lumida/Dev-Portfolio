@@ -1,20 +1,25 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUp } from 'lucide-react';
+import { memo } from 'react';
 
 const ScrollToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    let ticking = false;
     const toggleVisibility = () => {
-      if (window.pageYOffset > 300) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const shouldShow = window.pageYOffset > 300;
+          setIsVisible((prev) => (prev !== shouldShow ? shouldShow : prev));
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
-    window.addEventListener('scroll', toggleVisibility);
+    window.addEventListener('scroll', toggleVisibility, { passive: true });
     return () => window.removeEventListener('scroll', toggleVisibility);
   }, []);
 
@@ -38,12 +43,12 @@ const ScrollToTop = () => {
           className="fixed bottom-8 right-8 z-50 p-4 glass rounded-full shadow-lg hover:shadow-primary/50 transition-all group"
           aria-label="Scroll to top"
         >
-          <ArrowUp className="text-primary group-hover:animate-bounce" size={20} />
+          <ArrowUp className="text-primary" size={20} />
         </motion.button>
       )}
     </AnimatePresence>
   );
 };
 
-export default ScrollToTop;
+export default memo(ScrollToTop);
 

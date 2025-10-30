@@ -16,6 +16,7 @@ import ScrollIndicator from './ScrollIndicator';
 import StatsCounter from './StatsCounter';
 import FeaturedProject from './FeaturedProject';
 import AnimatedSphere from './AnimatedSphere';
+import profileImg from '../assets/profile.jpeg';
 
 const HeroSection = () => {
   const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
@@ -47,11 +48,14 @@ const HeroSection = () => {
 
   return (
     <section ref={ref} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
-      {/* Background Animation - Only render when in view */}
+      {/* Background Animation - Only render when in view, disable on mobile */}
       {inView && (
         <div className="absolute inset-0 opacity-20">
           <Suspense fallback={null}>
-            <Canvas>
+            <Canvas
+              dpr={[1, 1.5]} // Limit pixel ratio for performance
+              performance={{ min: 0.5 }} // Reduce quality on low-end devices
+            >
               <AnimatedSphere />
             </Canvas>
           </Suspense>
@@ -134,7 +138,7 @@ const HeroSection = () => {
                 onClick={handleRipple}
                 className="relative overflow-hidden group px-6 py-3 bg-gradient-to-r from-primary to-secondary rounded-lg font-medium text-dark-100 hover:shadow-lg hover:shadow-primary/50 transition-all flex items-center space-x-2"
               >
-                <FileText size={20} className="group-hover:animate-bounce" />
+                <FileText size={20} />
                 <span>View Resume</span>
               </Link>
               <a
@@ -142,7 +146,7 @@ const HeroSection = () => {
                 onClick={handleRipple}
                 className="relative overflow-hidden group px-6 py-3 glass-light border border-primary/30 rounded-lg font-medium text-primary hover:bg-primary/20 transition-all flex items-center space-x-2"
               >
-                <Mail size={20} className="group-hover:animate-bounce" />
+                <Mail size={20} />
                 <span>Get in Touch</span>
               </a>
             </motion.div>
@@ -183,11 +187,15 @@ const HeroSection = () => {
             transition={{ delay: 0.5, duration: 0.8 }}
             className="hidden lg:block"
           >
-            <div className="relative w-full h-96">
-              <div className="absolute inset-0 glass rounded-3xl flex items-center justify-center">
-                <div className="text-6xl font-heading font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                  AI
-                </div>
+            <div className="relative w-full h-96 flex items-center justify-center">
+              <div className="glass rounded-3xl p-8 flex items-center justify-center">
+                <img
+                  src={profileImg}
+                  alt="Ahsan Iftikhar"
+                  className="w-56 h-56 rounded-full object-cover object-[50%_65%] ring-2 ring-primary/40 shadow-xl"
+                  loading="eager"
+                  decoding="async"
+                />
               </div>
             </div>
           </motion.div>

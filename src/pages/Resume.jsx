@@ -100,16 +100,15 @@ const skills = {
 };
 
 const skillProficiencies = {
-  'JavaScript': 95,
-  'TypeScript': 90,
-  'Python': 88,
-  'Java': 85,
-  'React': 95,
-  'Next.js': 90,
-  'Node.js': 92,
-  'PostgreSQL': 88,
-  'Docker': 85,
-  'Git': 90,
+  'JavaScript': 70,
+  'TypeScript': 50,
+  'Python': 70,
+  'React': 80,
+  'Next.js': 60,
+  'Node.js': 65,
+  'PostgreSQL': 70,
+  'Docker': 70,
+  'Git': 80,
 };
 
 const calculateExperience = () => {
@@ -171,24 +170,28 @@ const Resume = () => {
         </motion.div>
 
         {/* Experience Section */}
-        <motion.section
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
-          className="mb-16"
-        >
-          <h2 className="text-3xl font-heading font-semibold text-adaptive-white mb-8">Experience</h2>
+        <section className="mb-16">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-3xl font-heading font-semibold text-adaptive-white mb-8"
+          >
+            Experience
+          </motion.h2>
           <ExperienceTimeline experiences={experiences} />
-        </motion.section>
+        </section>
 
         {/* Skills Section */}
-        <motion.section
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.6 }}
-          className="mb-16"
-        >
-          <h2 className="text-3xl font-heading font-semibold text-adaptive-white mb-8">Skills</h2>
+        <section className="mb-16">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-3xl font-heading font-semibold text-adaptive-white mb-8"
+          >
+            Skills
+          </motion.h2>
           
           {/* Skill Progress Bars */}
           <div className="glass p-6 rounded-2xl mb-8">
@@ -281,25 +284,27 @@ const Resume = () => {
               </div>
             </div>
           </div>
-        </motion.section>
+        </section>
 
         {/* Certificates Section */}
-        <motion.section
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.6 }}
-        >
-          <div className="flex items-center space-x-3 mb-8">
+        <section>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex items-center space-x-3 mb-8"
+          >
             <Award className="text-primary" size={32} />
             <h2 className="text-3xl font-heading font-semibold text-adaptive-white">Certificates</h2>
-          </div>
+          </motion.div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {certificates.map((cert, index) => (
               <motion.div
                 key={cert.name}
                 initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.7 + index * 0.1 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: '-50px', amount: 0.2 }}
+                transition={{ delay: index * 0.1, duration: 0.4 }}
                 className="glass p-6 rounded-xl"
               >
                 <h3 className="text-lg font-semibold text-adaptive-white mb-1">{cert.name}</h3>
@@ -309,7 +314,7 @@ const Resume = () => {
               </motion.div>
             ))}
           </div>
-        </motion.section>
+        </section>
       </div>
     </div>
   );

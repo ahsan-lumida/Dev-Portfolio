@@ -1,9 +1,10 @@
-import { useState, useMemo } from 'react';
+import { useState, lazy, Suspense, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import ProjectCard from '../components/ProjectCard';
-import ProjectFilter from '../components/ProjectFilter';
-import ProjectModal from '../components/ProjectModal';
-import { Rocket, Sparkles } from 'lucide-react';
+import { Rocket } from 'lucide-react';
+
+// Lazy load modal for better initial performance
+const ProjectModal = lazy(() => import('../components/ProjectModal'));
 
 const projects = [
   {
@@ -92,37 +93,19 @@ const projects = [
 ];
 
 const Projects = () => {
-  const [filters, setFilters] = useState({ search: '', tech: [] });
   const [selectedProject, setSelectedProject] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const allTech = useMemo(() => {
-    const techSet = new Set();
-    projects.forEach((project) => {
-      project.stack.forEach((tech) => techSet.add(tech));
-    });
-    return Array.from(techSet).sort();
-  }, []);
-
-  const filteredProjects = useMemo(() => {
-    return projects.filter((project) => {
-      const matchesSearch =
-        filters.search === '' ||
-        project.title.toLowerCase().includes(filters.search.toLowerCase()) ||
-        project.description.toLowerCase().includes(filters.search.toLowerCase());
-
-      const matchesTech =
-        filters.tech.length === 0 ||
-        filters.tech.some((tech) => project.stack.includes(tech));
-
-      return matchesSearch && matchesTech;
-    });
-  }, [filters]);
-
-  const handleProjectClick = (project) => {
+  const handleProjectClick = useCallback((project) => {
     setSelectedProject(project);
     setIsModalOpen(true);
-  };
+  }, []);
+
+  const handleCloseModal = useCallback(() => {
+    setIsModalOpen(false);
+    // Clear project on close to free memory
+    setTimeout(() => setSelectedProject(null), 300);
+  }, []);
 
   return (
     <div className="min-h-screen pt-24 pb-20">
@@ -145,34 +128,25 @@ const Projects = () => {
           </p>
         </motion.div>
 
-        {/* Filters */}
-        <ProjectFilter
-          projects={projects}
-          onFilterChange={setFilters}
-          allTech={allTech}
-        />
-
         {/* Projects Grid */}
-        {filteredProjects.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredProjects.map((project, index) => (
-              <div key={project.title} onClick={() => handleProjectClick(project)}>
-                <ProjectCard project={project} index={index} />
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-12">
-            <p className="text-adaptive-gray text-lg">No projects found matching your criteria.</p>
-          </div>
-        )}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {projects.map((project) => (
+            <div key={project.title} onClick={() => handleProjectClick(project)}>
+              <ProjectCard project={project} />
+            </div>
+          ))}
+        </div>
 
-        {/* Modal */}
-        <ProjectModal
-          project={selectedProject}
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-        />
+        {/* Modal - Only render when needed */}
+        {isModalOpen && (
+          <Suspense fallback={null}>
+            <ProjectModal
+              project={selectedProject}
+              isOpen={isModalOpen}
+              onClose={handleCloseModal}
+            />
+          </Suspense>
+        )}
       </div>
     </div>
   );

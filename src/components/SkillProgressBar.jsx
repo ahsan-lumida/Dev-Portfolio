@@ -1,9 +1,9 @@
 import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, memo } from 'react';
 
 const SkillProgressBar = ({ skill, proficiency, delay = 0 }) => {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-50px' });
+  const inView = useInView(ref, { once: true, margin: '-100px', amount: 0.2 });
 
   return (
     <div ref={ref} className="mb-4">
@@ -11,7 +11,7 @@ const SkillProgressBar = ({ skill, proficiency, delay = 0 }) => {
         <span className="text-sm font-medium text-adaptive-gray-light">{skill}</span>
         <span className="text-xs text-adaptive-gray">{proficiency}%</span>
       </div>
-      <div className="h-2 bg-dark-300 html:light:bg-gray-200 rounded-full overflow-hidden">
+      <div className="h-2 bg-dark-300 rounded-full overflow-hidden">
         <motion.div
           initial={{ width: 0 }}
           animate={inView ? { width: `${proficiency}%` } : { width: 0 }}
@@ -23,5 +23,5 @@ const SkillProgressBar = ({ skill, proficiency, delay = 0 }) => {
   );
 };
 
-export default SkillProgressBar;
+export default memo(SkillProgressBar);
 

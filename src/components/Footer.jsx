@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
-import { Mail, MapPin, Github, Linkedin, ArrowRight, Phone, Globe } from 'lucide-react';
+import { Mail, MapPin, Github, Linkedin, ArrowRight, Globe } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const Footer = () => {
   return (
-    <footer className="glass border-t border-white/10 html:light:border-gray-300/60 mt-20">
+    <footer className="glass border-t border-white/10 mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Contact Info */}
@@ -17,13 +17,6 @@ const Footer = () => {
               >
                 <Mail size={18} />
                 <span>ahsaniftikhar2016@gmail.com</span>
-              </a>
-              <a
-                href="tel:+923072668682"
-                className="flex items-center space-x-3 text-adaptive-gray-light hover:text-primary transition-colors group"
-              >
-                <Phone size={18} />
-                <span>+92 307 2668682</span>
               </a>
               <div className="flex items-center space-x-3 text-adaptive-gray-light">
                 <MapPin size={18} />
@@ -111,7 +104,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-8 pt-8 border-t border-white/10 html:light:border-gray-300/40 text-center text-adaptive-gray text-sm">
+        <div className="mt-8 pt-8 border-t border-white/10 text-center text-adaptive-gray text-sm">
           <p>&copy; {new Date().getFullYear()} Ahsan Iftikhar. All rights reserved.</p>
         </div>
       </div>

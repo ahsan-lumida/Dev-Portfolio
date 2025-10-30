@@ -14,11 +14,37 @@
     transition: background-color 0.3s ease, color 0.3s ease;
   }
 
-  html.light body {
+  /* Performance optimizations */
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* GPU acceleration for animations */
+  .glass,
+  .glass-light {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+  }
+
+  /* Reduce motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  html.light body,
+  .light body {
     @apply bg-light-200 text-gray-800;
   }
 
-  html.light {
+  html.light,
+  .light {
     @apply bg-light-200;
   }
 
@@ -37,7 +63,8 @@
 
 @layer utilities {
   .glass {
-    @apply bg-dark-200/80 backdrop-blur-xl border border-white/10 rounded-2xl;
+    @apply bg-dark-200/80 backdrop-blur-xl border border-white/10;
+    border-radius: 1rem;
     transition: all 0.3s ease;
   }
 
@@ -47,11 +74,13 @@
   }
 
   .glass-light {
-    @apply bg-dark-200/40 backdrop-blur-md border border-white/5 rounded-xl;
+    @apply bg-dark-200/40 backdrop-blur-md border border-white/5;
+    border-radius: 0.75rem;
     transition: all 0.3s ease;
   }
 
-  html.light .glass-light {
+  html.light .glass-light,
+  .light .glass-light {
     @apply bg-white/60 backdrop-blur-md border border-gray-300/40 shadow-md;
   }
 
@@ -60,7 +89,8 @@
     @apply text-white;
   }
 
-  html.light .text-adaptive-white {
+  html.light .text-adaptive-white,
+  .light .text-adaptive-white {
     @apply text-gray-900;
   }
 
@@ -68,7 +98,8 @@
     @apply text-gray-300;
   }
 
-  html.light .text-adaptive-gray-light {
+  html.light .text-adaptive-gray-light,
+  .light .text-adaptive-gray-light {
     @apply text-gray-700;
   }
 
@@ -76,31 +107,51 @@
     @apply text-gray-400;
   }
 
-  html.light .text-adaptive-gray {
+  html.light .text-adaptive-gray,
+  .light .text-adaptive-gray {
     @apply text-gray-600;
   }
 
   /* Navbar background for light mode */
-  html.light nav {
+  html.light nav,
+  .light nav {
     @apply border-gray-300/60;
   }
 
-  html.light nav.glass {
+  html.light nav.glass,
+  .light nav.glass {
     @apply bg-white/95;
   }
 
-  html.light nav:not(.glass) {
+  html.light nav:not(.glass),
+  .light nav:not(.glass) {
     @apply bg-white/90;
   }
 
   /* Progress bar background for light mode */
-  html.light .bg-dark-300 {
+  html.light .bg-dark-300,
+  .light .bg-dark-300 {
     background-color: rgb(229 231 235);
   }
 
   /* Footer border for light mode */
-  html.light footer {
+  html.light footer,
+  .light footer {
     @apply border-gray-300/60;
+  }
+
+  /* Timeline border for light mode */
+  html.light .border-dark-100,
+  .light .border-dark-100 {
+    border-color: rgb(248 250 252);
+  }
+
+  /* Placeholder text for light mode */
+  html.light input::placeholder,
+  html.light textarea::placeholder,
+  .light input::placeholder,
+  .light textarea::placeholder {
+    @apply text-gray-500;
   }
 
   .ripple {

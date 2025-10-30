@@ -1,5 +1,5 @@
 import { motion, useInView } from 'framer-motion';
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, memo } from 'react';
 
 const Counter = ({ end, duration = 2, suffix = '' }) => {
   const [count, setCount] = useState(0);
@@ -48,10 +48,10 @@ const StatsCounter = ({ value, label, suffix = '' }) => {
       <div className="text-4xl md:text-5xl font-heading font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-2">
         <Counter end={numValue} suffix={value.replace(/\d+/, '') || suffix} />
       </div>
-      <p className="text-gray-400 text-sm md:text-base">{label}</p>
+      <p className="text-adaptive-gray text-sm md:text-base">{label}</p>
     </motion.div>
   );
 };
 
-export default StatsCounter;
+export default memo(StatsCounter);
 
