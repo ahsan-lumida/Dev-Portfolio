@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-dark-100 text-gray-100 font-sans;
+    font-family: 'Inter', sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  html.light body {
+    @apply bg-light-200 text-gray-800;
+  }
+
+  html.light {
+    @apply bg-light-200;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  /* Ripple effect */
+  @keyframes ripple {
+    to {
+      transform: scale(4);
+      opacity: 0;
+    }
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-dark-200/80 backdrop-blur-xl border border-white/10 rounded-2xl;
+    transition: all 0.3s ease;
+  }
+
+  html.light .glass {
+    @apply bg-white/90 backdrop-blur-xl border border-gray-300/60 shadow-lg;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+
+  .glass-light {
+    @apply bg-dark-200/40 backdrop-blur-md border border-white/5 rounded-xl;
+    transition: all 0.3s ease;
+  }
+
+  html.light .glass-light {
+    @apply bg-white/60 backdrop-blur-md border border-gray-300/40 shadow-md;
+  }
+
+  /* Text color utilities for light mode */
+  .text-adaptive-white {
+    @apply text-white;
+  }
+
+  html.light .text-adaptive-white {
+    @apply text-gray-900;
+  }
+
+  .text-adaptive-gray-light {
+    @apply text-gray-300;
+  }
+
+  html.light .text-adaptive-gray-light {
+    @apply text-gray-700;
+  }
+
+  .text-adaptive-gray {
+    @apply text-gray-400;
+  }
+
+  html.light .text-adaptive-gray {
+    @apply text-gray-600;
+  }
+
+  /* Navbar background for light mode */
+  html.light nav {
+    @apply border-gray-300/60;
+  }
+
+  html.light nav.glass {
+    @apply bg-white/95;
+  }
+
+  html.light nav:not(.glass) {
+    @apply bg-white/90;
+  }
+
+  /* Progress bar background for light mode */
+  html.light .bg-dark-300 {
+    background-color: rgb(229 231 235);
+  }
+
+  /* Footer border for light mode */
+  html.light footer {
+    @apply border-gray-300/60;
+  }
+
+  .ripple {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ripple::after {
+    content: '';
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(0);
+    animation: ripple 0.6s ease-out;
+    top: 50%;
+    left: 50%;
+    margin-left: -50px;
+    margin-top: -50px;
+  }
+
+  .ripple-effect {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    transform: scale(0);
+    animation: ripple 0.6s ease-out;
+    pointer-events: none;
+  }
+}
